@@ -5,8 +5,6 @@ import AddTask from './/components/AddTask'
 
 
 function App() {
-  //const name = 'Girl'
-
 
   const [showAddTask, setShowAddTask] = useState(false)
 
@@ -58,7 +56,10 @@ const deleteTask = (id) =>{
 
 //Reminder - when a user clicks on an a task a green bar pops up if there is a reminder for that task.
 const Reminder = (id) => {
-  setTasks(tasks.map((task)=> task.id === id ? {...task, reminder : !task.reminder} : task))
+  const data = tasks.map((task)=> task.id === id ? {...task, reminder : !task.reminder} : task)
+  setTasks(data)
+  localStorage.setItem("task", JSON.stringify(data));
+
 }
 
   return (

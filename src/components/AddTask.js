@@ -7,8 +7,8 @@ const AddTask = ({onAdd}) => {
 
     const onSubmit = (e) => {
         e.preventDefault()
-        if (!text){
-            alert('Please add task')
+        if (!text || !day){
+            alert('Please add task and date information')
             return
         }
 
