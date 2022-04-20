@@ -7,34 +7,42 @@ import AddTask from './/components/AddTask'
 function App() {
   //const name = 'Girl'
 
+
   const [showAddTask, setShowAddTask] = useState(false)
 
-  const [tasks, setTasks] = useState (
-    [
-        // {
-        //     id:1,
-        //     text: 'Doctors Appointment',
-        //     day: ' Feb 10, 2021',
-        //     reminder: true
-        // },
-        // {
-        //     id: 2,
-        //     text: 'Life Appointment',
-        //     day: 'April 10, 2021',
-        //     reminder: true
-        // }
-    
-    ]
-)
+  const [tasks, setTasks] = useState ([])
+
+  useEffect(() => {
+     const data = localStorage.getItem('task')
+
+      if(data){
+        setTasks(JSON.parse(data))
+      }
+
+      console.log(data)
+    },[])
+
+
 
 //add task function
-const addTask = (task) => {
+const addTask = (event, task) => {
   const id = Math.floor(Math.random() * 200 + 1)
   console.log(id)
   const newTask = {id, ...task} // ..task gets all the tasks input from the form
-  setTasks([...tasks, newTask])
+
+  //setTasks([...tasks, newTask])
+  setTasks((preval) => [...preval, newTask])
+ 
+  let info = JSON.parse(localStorage.getItem('task'))
+  if (info == null){
+    info = []
+  }
+  
+  info.push(JSON.stringify(newTask))
+  localStorage.setItem('task', JSON.stringify(info))
  
   //localStorage.setItem(id, JSON.stringify(newTask))
+
 }
 
 
