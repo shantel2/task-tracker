@@ -26,30 +26,34 @@ function App() {
 
 //add task function
 const addTask = (event, task) => {
-  const id = Math.floor(Math.random() * 200 + 1)
-  console.log(id)
-  const newTask = {id, ...task} // ..task gets all the tasks input from the form
+  const id = Math.floor(Math.random() * 200 + 1);
+  const text = event["text"];
+  const day = event["day"];
+  const reminder = event["reminder"];
+  const newTask = { id, text, day, reminder }; // ..task gets all the tasks input from the form
+  console.log(newTask);
+  setTasks((preval) => [...preval, newTask]);
 
-  //setTasks([...tasks, newTask])
-  setTasks((preval) => [...preval, newTask])
- 
-  let info = JSON.parse(localStorage.getItem('task'))
-  if (info == null){
-    info = []
+  let info = JSON.parse(localStorage.getItem("task"));
+
+  if (!info) {
+    info = [];
   }
-  
-  info.push(JSON.stringify(newTask))
-  localStorage.setItem('task', JSON.stringify(info))
- 
+
+  info.push(newTask);
+  localStorage.setItem("task", JSON.stringify(info));
+
   //localStorage.setItem(id, JSON.stringify(newTask))
-
-}
-
+};
 
 //Delete Task
 //shows only the tasks whose id is not eqqual to the one that was clicked
 const deleteTask = (id) =>{
-  setTasks(tasks.filter((task) => task.id !== id))
+  const data = tasks.filter((task) => task.id !== id)
+  console.log(data)
+  setTasks(data)
+  localStorage.setItem("task", JSON.stringify(data));
+
 }
 
 //Reminder - when a user clicks on an a task a green bar pops up if there is a reminder for that task.
